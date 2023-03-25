@@ -1,6 +1,10 @@
 Services
-	-Favourites => 2911
+	- Catalog    => 2911
+	- PhotoStock => 2912
+	- Basket     => 2913
 
+
+IdentityServer => 5016
 
 Protainer
 	Password123456

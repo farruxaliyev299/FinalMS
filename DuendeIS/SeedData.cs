@@ -69,7 +69,8 @@ public static class SeedData
             ClientSecrets= {new Secret("secret".Sha256())},
             AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
             AllowedScopes=
-            { 
+            {
+                "catalog_fullpermission",
                 "basket_fullpermission", 
                 "order_fullpermission", 
                 "gateway_fullpermission", 

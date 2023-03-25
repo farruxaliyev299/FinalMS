@@ -8,16 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="keys\**" />
     <Compile Remove="MainModule\**" />
     <Compile Remove="Views2\**" />
-    <Content Remove="keys\**" />
     <Content Remove="MainModule\**" />
     <Content Remove="Views2\**" />
-    <EmbeddedResource Remove="keys\**" />
     <EmbeddedResource Remove="MainModule\**" />
     <EmbeddedResource Remove="Views2\**" />
-    <None Remove="keys\**" />
     <None Remove="MainModule\**" />
     <None Remove="Views2\**" />
   </ItemGroup>

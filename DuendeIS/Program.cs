@@ -1,4 +1,5 @@
 using Duende;
+using Duende.IdentityServer.Validation;
 using FinalMS.DuendeIS;
 using FinalMS.DuendeIS.Data;
 using FinalMS.DuendeIS.Initializer;
@@ -9,13 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
-//TODO: Servisi register elemek alinmir AddResourceOwnerValidator() yoxdu.
-builder.Services.AddScoped<IdentityResourceOwnerPasswordValidator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -37,7 +35,8 @@ builder.Services.AddIdentityServer(options =>
   .AddInMemoryApiResources(SeedData.ApiResources)
   .AddInMemoryApiScopes(SeedData.ApiScopes)
   .AddInMemoryClients(SeedData.Clients)
-  .AddAspNetIdentity<ApplicationUser>();
+  .AddAspNetIdentity<ApplicationUser>()
+  .AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
 
 builder.Services.AddLocalApiAuthentication();
 
