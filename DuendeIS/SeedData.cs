@@ -41,13 +41,13 @@ public static class SeedData
 
     public static IEnumerable<ApiScope> ApiScopes => new ApiScope[]
     {
-        new ApiScope("catalog_fullpermission","Catalog API için full erişim"),
-        new ApiScope("photo_stock_fullpermission","Photo Stock API için full erişim"),
-        new ApiScope("basket_fullpermission","Basket API için full erişim"),
-        new ApiScope("discount_fullpermission","Discount API için full erişim"),
-        new ApiScope("order_fullpermission","Order API için full erişim"),
-        new ApiScope("payment_fullpermission","Payment API için full erişim"),
-        new ApiScope("gateway_fullpermission","Gateway API için full erişim"),
+        new ApiScope("catalog_fullpermission","Catalog API full access"),
+        new ApiScope("photo_stock_fullpermission","Photo Stock API full access"),
+        new ApiScope("basket_fullpermission","Basket API full access"),
+        new ApiScope("discount_fullpermission","Discount API full access"),
+        new ApiScope("order_fullpermission","Order API full access"),
+        new ApiScope("payment_fullpermission","Payment API full access"),
+        new ApiScope("gateway_fullpermission","Gateway API full access"),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
 
@@ -71,7 +71,8 @@ public static class SeedData
             AllowedScopes=
             {
                 "catalog_fullpermission",
-                "basket_fullpermission", 
+                "basket_fullpermission",
+                "discount_fullpermission",
                 "order_fullpermission", 
                 "gateway_fullpermission", 
                 IdentityServerConstants.StandardScopes.Email, 

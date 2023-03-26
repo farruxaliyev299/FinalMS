@@ -2,7 +2,7 @@ Services
 	- Catalog    => 2911
 	- PhotoStock => 2912
 	- Basket     => 2913
-
+	- Discount   => 2914
 
 IdentityServer => 5016
 
