@@ -21,13 +21,13 @@ public static class SeedData
 
     public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
     {
-        new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
-        new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission"}},
-        new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
-        new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
-        new ApiResource("resource_order"){Scopes={"order_fullpermission"}},
-        new ApiResource("resource_payment"){Scopes={"payment_fullpermission"}},
-        new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission"}},
+        new ApiResource("resource_catalog")     {Scopes={"catalog_fullpermission"}},
+        new ApiResource("resource_photo_stock") {Scopes={"photo_stock_fullpermission"}},
+        new ApiResource("resource_basket")      {Scopes={"basket_fullpermission"}},
+        new ApiResource("resource_discount")    {Scopes={"discount_fullpermission"}},
+        new ApiResource("resource_order")       {Scopes={"order_fullpermission"}},
+        new ApiResource("resource_payment")     {Scopes={"payment_fullpermission"}},
+        new ApiResource("resource_gateway")     {Scopes={"gateway_fullpermission"}},
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
 
@@ -59,7 +59,13 @@ public static class SeedData
             ClientId="WebMvcClient",
             ClientSecrets= {new Secret("secret".Sha256())},
             AllowedGrantTypes= GrantTypes.ClientCredentials,
-            AllowedScopes={ "catalog_fullpermission","photo_stock_fullpermission", "gateway_fullpermission", IdentityServerConstants.LocalApi.ScopeName }
+            AllowedScopes=
+            { 
+                "catalog_fullpermission", 
+                "photo_stock_fullpermission", 
+                "gateway_fullpermission", 
+                IdentityServerConstants.LocalApi.ScopeName 
+            }
         },
         new Client
         {
@@ -72,9 +78,11 @@ public static class SeedData
             {
                 "catalog_fullpermission",
                 "basket_fullpermission",
+                "photo_stock_fullpermission",
                 "discount_fullpermission",
                 "order_fullpermission", 
-                "gateway_fullpermission", 
+                "gateway_fullpermission",
+                "payment_fullpermission",
                 IdentityServerConstants.StandardScopes.Email, 
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Profile, 
