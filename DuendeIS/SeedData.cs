@@ -79,10 +79,8 @@ public static class SeedData
                 "catalog_fullpermission",
                 "basket_fullpermission",
                 "photo_stock_fullpermission",
-                "discount_fullpermission",
                 "order_fullpermission", 
                 "gateway_fullpermission",
-                "payment_fullpermission",
                 IdentityServerConstants.StandardScopes.Email, 
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Profile, 
@@ -94,6 +92,19 @@ public static class SeedData
             RefreshTokenExpiration=TokenExpiration.Absolute,
             AbsoluteRefreshTokenLifetime= (int) (DateTime.Now.AddDays(60)- DateTime.Now).TotalSeconds,
             RefreshTokenUsage= TokenUsage.ReUse
+        },
+        new Client
+        {
+            ClientName="Token Exchange",
+            ClientId="TokenExchange",
+            ClientSecrets= {new Secret("secret".Sha256())},
+            AllowedGrantTypes= { OidcConstants.GrantTypes.TokenExchange },
+            AllowedScopes=
+            {
+                "discount_fullpermission",
+                "payment_fullpermission",
+                IdentityServerConstants.StandardScopes.OpenId,
+            }
         },
     };
 }

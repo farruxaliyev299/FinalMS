@@ -36,7 +36,8 @@ builder.Services.AddIdentityServer(options =>
   .AddInMemoryApiScopes(SeedData.ApiScopes)
   .AddInMemoryClients(SeedData.Clients)
   .AddAspNetIdentity<ApplicationUser>()
-  .AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
+  .AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>()
+  .AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
 
 builder.Services.AddLocalApiAuthentication();
 

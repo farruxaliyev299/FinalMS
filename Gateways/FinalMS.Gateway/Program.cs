@@ -1,7 +1,10 @@
+using FinalMS.Gateway.DelegateHandlers;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient<TokenExchangeDelegateHandler>();
 
 builder.Configuration
     .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName.ToLower()}.json")
@@ -14,7 +17,7 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
     options.RequireHttpsMetadata = false;
 });
 
-builder.Services.AddOcelot();
+builder.Services.AddOcelot().AddDelegatingHandler<TokenExchangeDelegateHandler>();
 
 
 var app = builder.Build();

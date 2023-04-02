@@ -2,11 +2,26 @@ using FinalMS.Catalog.Services.Categories;
 using FinalMS.Catalog.Services.Products;
 using FinalMS.Catalog.Services.Stores;
 using FinalMS.Catalog.Settings;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMassTransit((x =>
+{
+    x.UsingRabbitMq((context, config) =>
+    {
+        config.Host(builder.Configuration.GetSection("RabbitMQUrl").Value, @"/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+    });
+}));
+
+builder.Services.AddMassTransitHostedService();
 
 #region CustomServices
 builder.Services.AddScoped<ICategoryService, CategoryService>();

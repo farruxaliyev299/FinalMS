@@ -6,6 +6,8 @@ using FinalMS.Catalog.Models;
 using FinalMS.Catalog.Settings;
 using MongoDB.Driver;
 using FinalMS.Shared.DTOs;
+using MT = MassTransit;
+using FinalMS.Shared.Messages;
 
 namespace FinalMS.Catalog.Services.Products;
 
@@ -14,9 +16,10 @@ public class ProductService : IProductService
     private readonly IMongoCollection<Product> _productCollection;
     private readonly IMongoCollection<Category> _categoryCollection;
     private readonly IMongoCollection<Store> _storeCollection;
+    private readonly MT.IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
-    public ProductService(IMapper mapper, IDatabaseSettings settings)
+    public ProductService(IMapper mapper, IDatabaseSettings settings, MT.IPublishEndpoint publishEndpoint)
     {
         var client = new MongoClient(settings.ConnectionString);
         var database = client.GetDatabase(settings.DatabaseName);
@@ -24,6 +27,7 @@ public class ProductService : IProductService
         _categoryCollection = database.GetCollection<Category>(settings.CategoryCollectionName);
         _storeCollection = database.GetCollection<Store>(settings.StoreCollectionName);
 
+        _publishEndpoint = publishEndpoint;
         _mapper = mapper;
     }
 
@@ -90,6 +94,8 @@ public class ProductService : IProductService
         var existingProduct = await _productCollection.FindOneAndReplaceAsync(product => product.Id == productDto.Id, updateProduct);
 
         if (existingProduct is null) return Response<NoContent>.Fail("Product not found", StatusCodes.Status404NotFound);
+
+        await _publishEndpoint.Publish<ProductNameChangedEvent>(new ProductNameChangedEvent { ProductId = updateProduct.Id, UpdatedProductName = productDto.Name });
 
         return Response<NoContent>.Success(StatusCodes.Status204NoContent);
 
