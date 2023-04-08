@@ -8,6 +8,3 @@ Services
 
 Gateway         => 2900
 IdentityServer  => 2901
-
-Protainer
-	Password123456

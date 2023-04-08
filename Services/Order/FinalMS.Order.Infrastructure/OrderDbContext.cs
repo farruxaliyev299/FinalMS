@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FinalMS.Order.Infrastructure.Data;
+namespace FinalMS.Order.Infrastructure;
 
 public class OrderDbContext : DbContext
 {

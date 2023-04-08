@@ -31,6 +31,7 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseFailureEvents = true;
     options.Events.RaiseSuccessEvents = true;
     options.EmitStaticAudienceClaim = true;
+    options.IssuerUri = builder.Configuration.GetSection("IssuerURI").Value;
 }).AddInMemoryIdentityResources(SeedData.IdentityResources)
   .AddInMemoryApiResources(SeedData.ApiResources)
   .AddInMemoryApiScopes(SeedData.ApiScopes)
@@ -43,7 +44,6 @@ builder.Services.AddLocalApiAuthentication();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

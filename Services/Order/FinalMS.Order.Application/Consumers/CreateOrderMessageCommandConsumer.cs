@@ -1,4 +1,4 @@
-﻿using FinalMS.Order.Infrastructure.Data;
+﻿using FinalMS.Order.Infrastructure;
 using FinalMS.Shared.Messages;
 using MassTransit;
 

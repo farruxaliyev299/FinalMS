@@ -1,6 +1,6 @@
 ﻿using FinalMS.Order.Application.DTOs;
 using FinalMS.Order.Domain.OrderAggregate;
-using FinalMS.Order.Infrastructure.Data;
+using FinalMS.Order.Infrastructure;
 using FinalMS.Shared.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http;

@@ -17,7 +17,7 @@ namespace FinalMS.DuendeIS;
 public static class SeedData
 {
     public const string Admin = "Admin";
-    public const string Store = "Store";
+    public const string Customer = "Customer";
 
     public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
     {

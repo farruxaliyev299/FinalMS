@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  catalogdb:
+    image: mongodb/mongodb-community-server:latest
+  basketdb:
+    image: redis:latest
+  discountdb:
+    image: postgres:latest
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  identitydb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  rabbitmq:
+    image: rabbitmq:3.11.11-management
+
+  catalog.api:
+    image: catalog_api_image
+    build:
+      context: .
+      dockerfile: Services/Catalog/FinalMS.Catalog/Dockerfile
+  duendeis.api:
+    image: duendeis_api_image
+    build:
+      context: .
+      dockerfile: DuendeIS/Dockerfile
+  basket.api:
+    image: basket_api_image
+    build:
+      context: .
+      dockerfile: Services/Basket/FinalMS.Basket/Dockerfile
+  photostock.api:
+    image: photostock_api_image
+    build:
+      context: .
+      dockerfile: Services/PhotoStock/FinalMS.PhotoStock/Dockerfile
+  discount.api:
+    image: discount_api_image
+    build:
+      context: .
+      dockerfile: Services/Discount/FinalMS.Discount/Dockerfile
+  fakepayment.api:
+    image: fakepayment_api_image
+    build:
+      context: .
+      dockerfile: Services/FakePayment/FinalMS.FakePayment/Dockerfile
+  order.api:
+    image: order_api_image
+    build:
+      context: .
+      dockerfile: Services/Order/FinalMS.Order.API/Dockerfile
+  gateway.api:
+    image: gateway_api_image
+    build:
+      context: .
+      dockerfile: Gateways/FinalMS.Gateway/Dockerfile
+
+volumes:
+  catalogdb_volume:
+  discountdb_volume:
+  orderdb_volume:
+  identitydb_volume:

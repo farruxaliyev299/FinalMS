@@ -1,5 +1,5 @@
 using FinalMS.Order.Application.Consumers;
-using FinalMS.Order.Infrastructure.Data;
+using FinalMS.Order.Infrastructure;
 using FinalMS.Shared.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
