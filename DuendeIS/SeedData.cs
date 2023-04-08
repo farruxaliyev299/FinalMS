@@ -17,17 +17,17 @@ namespace FinalMS.DuendeIS;
 public static class SeedData
 {
     public const string Admin = "Admin";
-    public const string Store = "Store";
+    public const string Customer = "Customer";
 
     public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
     {
-        new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
-        new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission"}},
-        new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
-        new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
-        new ApiResource("resource_order"){Scopes={"order_fullpermission"}},
-        new ApiResource("resource_payment"){Scopes={"payment_fullpermission"}},
-        new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission"}},
+        new ApiResource("resource_catalog")     {Scopes={"catalog_fullpermission"}},
+        new ApiResource("resource_photo_stock") {Scopes={"photo_stock_fullpermission"}},
+        new ApiResource("resource_basket")      {Scopes={"basket_fullpermission"}},
+        new ApiResource("resource_discount")    {Scopes={"discount_fullpermission"}},
+        new ApiResource("resource_order")       {Scopes={"order_fullpermission"}},
+        new ApiResource("resource_payment")     {Scopes={"payment_fullpermission"}},
+        new ApiResource("resource_gateway")     {Scopes={"gateway_fullpermission"}},
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
 
@@ -41,13 +41,13 @@ public static class SeedData
 
     public static IEnumerable<ApiScope> ApiScopes => new ApiScope[]
     {
-        new ApiScope("catalog_fullpermission","Catalog API için full erişim"),
-        new ApiScope("photo_stock_fullpermission","Photo Stock API için full erişim"),
-        new ApiScope("basket_fullpermission","Basket API için full erişim"),
-        new ApiScope("discount_fullpermission","Discount API için full erişim"),
-        new ApiScope("order_fullpermission","Order API için full erişim"),
-        new ApiScope("payment_fullpermission","Payment API için full erişim"),
-        new ApiScope("gateway_fullpermission","Gateway API için full erişim"),
+        new ApiScope("catalog_fullpermission","Catalog API full access"),
+        new ApiScope("photo_stock_fullpermission","Photo Stock API full access"),
+        new ApiScope("basket_fullpermission","Basket API full access"),
+        new ApiScope("discount_fullpermission","Discount API full access"),
+        new ApiScope("order_fullpermission","Order API full access"),
+        new ApiScope("payment_fullpermission","Payment API full access"),
+        new ApiScope("gateway_fullpermission","Gateway API full access"),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
 
@@ -59,7 +59,13 @@ public static class SeedData
             ClientId="WebMvcClient",
             ClientSecrets= {new Secret("secret".Sha256())},
             AllowedGrantTypes= GrantTypes.ClientCredentials,
-            AllowedScopes={ "catalog_fullpermission","photo_stock_fullpermission", "gateway_fullpermission", IdentityServerConstants.LocalApi.ScopeName }
+            AllowedScopes=
+            { 
+                "catalog_fullpermission", 
+                "photo_stock_fullpermission", 
+                "gateway_fullpermission", 
+                IdentityServerConstants.LocalApi.ScopeName 
+            }
         },
         new Client
         {
@@ -69,10 +75,12 @@ public static class SeedData
             ClientSecrets= {new Secret("secret".Sha256())},
             AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
             AllowedScopes=
-            { 
-                "basket_fullpermission", 
+            {
+                "catalog_fullpermission",
+                "basket_fullpermission",
+                "photo_stock_fullpermission",
                 "order_fullpermission", 
-                "gateway_fullpermission", 
+                "gateway_fullpermission",
                 IdentityServerConstants.StandardScopes.Email, 
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Profile, 
@@ -84,6 +92,19 @@ public static class SeedData
             RefreshTokenExpiration=TokenExpiration.Absolute,
             AbsoluteRefreshTokenLifetime= (int) (DateTime.Now.AddDays(60)- DateTime.Now).TotalSeconds,
             RefreshTokenUsage= TokenUsage.ReUse
+        },
+        new Client
+        {
+            ClientName="Token Exchange",
+            ClientId="TokenExchange",
+            ClientSecrets= {new Secret("secret".Sha256())},
+            AllowedGrantTypes= { OidcConstants.GrantTypes.TokenExchange },
+            AllowedScopes=
+            {
+                "discount_fullpermission",
+                "payment_fullpermission",
+                IdentityServerConstants.StandardScopes.OpenId,
+            }
         },
     };
 }

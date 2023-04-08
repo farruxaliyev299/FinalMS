@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FinalMS.Shared": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51773;http://localhost:51777"
+    }
+  }
+}

@@ -25,7 +25,7 @@ public class DbInitializer : IDbInitializer
         if (_roleManager.FindByNameAsync(SeedData.Admin).Result == null)
         {
             _roleManager.CreateAsync(new IdentityRole(SeedData.Admin)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SeedData.Store)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new IdentityRole(SeedData.Customer)).GetAwaiter().GetResult();
         }
         else { return; }
 
@@ -59,12 +59,12 @@ public class DbInitializer : IDbInitializer
         };
 
         _userManager.CreateAsync(customerUser, "Customer12*").GetAwaiter().GetResult();
-        _userManager.AddToRoleAsync(customerUser, SeedData.Store).GetAwaiter().GetResult();
+        _userManager.AddToRoleAsync(customerUser, SeedData.Customer).GetAwaiter().GetResult();
 
         var temp2 = _userManager.AddClaimsAsync(customerUser, new Claim[] {
                 new Claim(JwtClaimTypes.GivenName,customerUser.FirstName),
                 new Claim(JwtClaimTypes.FamilyName,customerUser.LastName),
-                new Claim(JwtClaimTypes.Role,SeedData.Store),
+                new Claim(JwtClaimTypes.Role,SeedData.Customer),
             }).Result;
     }
 }

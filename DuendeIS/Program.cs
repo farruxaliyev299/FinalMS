@@ -1,4 +1,5 @@
 using Duende;
+using Duende.IdentityServer.Validation;
 using FinalMS.DuendeIS;
 using FinalMS.DuendeIS.Data;
 using FinalMS.DuendeIS.Initializer;
@@ -9,13 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
-//TODO: Servisi register elemek alinmir AddResourceOwnerValidator() yoxdu.
-builder.Services.AddScoped<IdentityResourceOwnerPasswordValidator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -33,17 +31,19 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseFailureEvents = true;
     options.Events.RaiseSuccessEvents = true;
     options.EmitStaticAudienceClaim = true;
+    options.IssuerUri = builder.Configuration.GetSection("IssuerURI").Value;
 }).AddInMemoryIdentityResources(SeedData.IdentityResources)
   .AddInMemoryApiResources(SeedData.ApiResources)
   .AddInMemoryApiScopes(SeedData.ApiScopes)
   .AddInMemoryClients(SeedData.Clients)
-  .AddAspNetIdentity<ApplicationUser>();
+  .AddAspNetIdentity<ApplicationUser>()
+  .AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>()
+  .AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
 
 builder.Services.AddLocalApiAuthentication();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

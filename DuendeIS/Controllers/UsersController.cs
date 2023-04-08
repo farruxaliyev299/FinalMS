@@ -17,7 +17,7 @@ namespace FinalMS.DuendeIS.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
         }
@@ -35,7 +35,9 @@ namespace FinalMS.DuendeIS.Controllers
 
             var result = await _userManager.CreateAsync(user, signupDto.Password);
 
-            if (!result.Succeeded)
+            var result2 = await _userManager.AddToRoleAsync(user, "Customer");
+
+            if (!result.Succeeded || !result2.Succeeded)
             {
                 return BadRequest(Response<NoContent>.Fail(result.Errors.Select(x => x.Description).ToList(), StatusCodes.Status400BadRequest));
             }

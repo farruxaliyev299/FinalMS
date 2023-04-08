@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FinalMS.Order.Domain": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51772;http://localhost:51774"
+    }
+  }
+}

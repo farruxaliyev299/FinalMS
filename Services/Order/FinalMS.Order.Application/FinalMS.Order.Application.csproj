@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.14" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Shared\FinalMS.Shared.csproj" />
+		<ProjectReference Include="..\FinalMS.Order.Domain\FinalMS.Order.Domain.csproj" />
+		<ProjectReference Include="..\FinalMS.Order.Infrastructure\FinalMS.Order.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

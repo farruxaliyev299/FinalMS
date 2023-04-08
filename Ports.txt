@@ -1,6 +1,10 @@
 Services
-	-Favourites => 2911
+	- Catalog      => 2911
+	- PhotoStock   => 2912
+	- Basket       => 2913
+	- Discount     => 2914
+	- Order        => 2915
+	- FakePayment  => 2916
 
-
-Protainer
-	Password123456
+Gateway         => 2900
+IdentityServer  => 2901
